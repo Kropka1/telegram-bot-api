@@ -217,6 +217,8 @@ type User struct {
 	//
 	// optional
 	SupportsInlineQueries bool `json:"supports_inline_queries,omitempty"`
+
+	State State `json:"state"`
 }
 
 // String displays a simple text version of a user.
@@ -355,6 +357,18 @@ func (c Chat) IsChannel() bool {
 // ChatConfig returns a ChatConfig struct for chat related methods.
 func (c Chat) ChatConfig() ChatConfig {
 	return ChatConfig{ChatID: c.ID}
+}
+
+type State struct {
+	Destiny string `json:"destiny"`
+}
+type StatesStorage struct {
+	States       []State `json:"states"`
+	CurrentState State   `json:"current_state"`
+}
+type RedisStorage struct {
+	RedisURL string `json:"redis_url"`
+	*StatesStorage
 }
 
 // Message represents a message.
